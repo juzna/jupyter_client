@@ -302,37 +302,37 @@ separate from the kernel's own internal code and variables).
 Message type: ``execute_request``::
 
     content = {
-        # Source code to be executed by the kernel, one or more lines.
-    'code' : str,
+      # Source code to be executed by the kernel, one or more lines.
+      'code' : str,
 
-    # A boolean flag which, if True, signals the kernel to execute
-    # this code as quietly as possible.
-    # silent=True forces store_history to be False,
-    # and will *not*:
-    #   - broadcast output on the IOPUB channel
-    #   - have an execute_result
-    # The default is False.
-    'silent' : bool,
+      # A boolean flag which, if True, signals the kernel to execute
+      # this code as quietly as possible.
+      # silent=True forces store_history to be False,
+      # and will *not*:
+      #   - broadcast output on the IOPUB channel
+      #   - have an execute_result
+      # The default is False.
+      'silent' : bool,
 
-    # A boolean flag which, if True, signals the kernel to populate history
-    # The default is True if silent is False.  If silent is True, store_history
-    # is forced to be False.
-    'store_history' : bool,
+      # A boolean flag which, if True, signals the kernel to populate history
+      # The default is True if silent is False.  If silent is True, store_history
+      # is forced to be False.
+      'store_history' : bool,
 
-    # A dict mapping names to expressions to be evaluated in the
-    # user's dict. The rich display-data representation of each will be evaluated after execution.
-    # See the display_data content for the structure of the representation data.
-    'user_expressions' : dict,
+      # A dict mapping names to expressions to be evaluated in the
+      # user's dict. The rich display-data representation of each will be evaluated after execution.
+      # See the display_data content for the structure of the representation data.
+      'user_expressions' : dict,
 
-    # Some frontends do not support stdin requests.
-    # If this is true, code running in the kernel can prompt the user for input
-    # with an input_request message (see below). If it is false, the kernel
-    # should not send these messages.
-    'allow_stdin' : True,
+      # Some frontends do not support stdin requests.
+      # If this is true, code running in the kernel can prompt the user for input
+      # with an input_request message (see below). If it is false, the kernel
+      # should not send these messages.
+      'allow_stdin' : True,
 
-    # A boolean flag, which, if True, does not abort the execution queue, if an exception is encountered.
-    # This allows the queued execution of multiple execute_requests, even if they generate exceptions.
-    'stop_on_error' : False,
+      # A boolean flag, which, if True, does not abort the execution queue, if an exception is encountered.
+      # This allows the queued execution of multiple execute_requests, even if they generate exceptions.
+      'stop_on_error' : False,
     }
 
 .. versionchanged:: 5.0
@@ -503,18 +503,18 @@ It is up to the Kernel to decide what information should be displayed, and its f
 Message type: ``inspect_request``::
 
     content = {
-        # The code context in which introspection is requested
-        # this may be up to an entire multiline cell.
-        'code' : str,
+      # The code context in which introspection is requested
+      # this may be up to an entire multiline cell.
+      'code' : str,
 
-        # The cursor position within 'code' (in unicode characters) where inspection is requested
-        'cursor_pos' : int,
+      # The cursor position within 'code' (in unicode characters) where inspection is requested
+      'cursor_pos' : int,
 
-        # The level of detail desired.  In IPython, the default (0) is equivalent to typing
-        # 'x?' at the prompt, 1 is equivalent to 'x??'.
-        # The difference is up to kernels, but in IPython level 1 includes the source code
-        # if available.
-        'detail_level' : 0 or 1,
+      # The level of detail desired.  In IPython, the default (0) is equivalent to typing
+      # 'x?' at the prompt, 1 is equivalent to 'x??'.
+      # The difference is up to kernels, but in IPython level 1 includes the source code
+      # if available.
+      'detail_level' : 0 or 1,
     }
 
 .. versionchanged:: 5.0
@@ -533,15 +533,15 @@ In the notebook, this is used to show tooltips over function calls, etc.
 Message type: ``inspect_reply``::
 
     content = {
-        # 'ok' if the request succeeded or 'error', with error information as in all other replies.
-        'status' : 'ok',
+      # 'ok' if the request succeeded or 'error', with error information as in all other replies.
+      'status' : 'ok',
 
-        # found should be true if an object was found, false otherwise
-        'found' : bool,
+      # found should be true if an object was found, false otherwise
+      'found' : bool,
 
-        # data can be empty if nothing is found
-        'data' : dict,
-        'metadata' : dict,
+      # data can be empty if nothing is found
+      'data' : dict,
+      'metadata' : dict,
     }
 
 .. versionchanged:: 5.0
@@ -560,13 +560,13 @@ Completion
 Message type: ``complete_request``::
 
     content = {
-        # The code context in which completion is requested
-        # this may be up to an entire multiline cell, such as
-        # 'foo = a.isal'
-        'code' : str,
+      # The code context in which completion is requested
+      # this may be up to an entire multiline cell, such as
+      # 'foo = a.isal'
+      'code' : str,
 
-        # The cursor position within 'code' (in unicode characters) where completion is requested
-        'cursor_pos' : int,
+      # The cursor position within 'code' (in unicode characters) where completion is requested
+      'cursor_pos' : int,
     }
 
 .. versionchanged:: 5.0
@@ -578,22 +578,22 @@ Message type: ``complete_request``::
 Message type: ``complete_reply``::
 
     content = {
-    # The list of all matches to the completion request, such as
-    # ['a.isalnum', 'a.isalpha'] for the above example.
-    'matches' : list,
+      # The list of all matches to the completion request, such as
+      # ['a.isalnum', 'a.isalpha'] for the above example.
+      'matches' : list,
 
-    # The range of text that should be replaced by the above matches when a completion is accepted.
-    # typically cursor_end is the same as cursor_pos in the request.
-    'cursor_start' : int,
-    'cursor_end' : int,
+      # The range of text that should be replaced by the above matches when a completion is accepted.
+      # typically cursor_end is the same as cursor_pos in the request.
+      'cursor_start' : int,
+      'cursor_end' : int,
 
-    # Information that frontend plugins might use for extra display information about completions.
-    'metadata' : dict,
+      # Information that frontend plugins might use for extra display information about completions.
+      'metadata' : dict,
 
-    # status should be 'ok' unless an exception was raised during the request,
-    # in which case it should be 'error', along with the usual error message content
-    # in other messages.
-    'status' : 'ok'
+      # status should be 'ok' unless an exception was raised during the request,
+      # in which case it should be 'error', along with the usual error message content
+      # in other messages.
+      'status' : 'ok'
     }
 
 .. versionchanged:: 5.0
